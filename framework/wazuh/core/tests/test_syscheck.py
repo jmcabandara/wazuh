@@ -13,7 +13,7 @@ with patch('wazuh.core.common.wazuh_uid'):
 @pytest.mark.parametrize('agent', ['001', '002', '003'])
 @patch('wazuh.core.wdb.WazuhDBConnection')
 def test_syscheck_delete_agent(mock_db_conn, agent):
-    """Test if proper parameters are being sent to the wdb socket
+    """Test if proper parameters are being sent to the wdb socket.
 
     Parameters
     ----------
