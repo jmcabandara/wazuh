@@ -18,9 +18,9 @@ def test_syscheck_delete_agent(mock_db_conn, agent):
     Parameters
     ----------
     agent : str
-        Agent whose information is being deleted from the db
+        Agent whose information is being deleted from the db.
     mock_db_conn : WazuhDBConnection
-        Object used to send the delete message to the wazuhdb socket
+        Object used to send the delete message to the wazuhdb socket.
     """
     syscheck.syscheck_delete_agent(agent, mock_db_conn)
     mock_db_conn.execute.assert_any_call(f"agent {agent} sql delete from fim_entry", delete=True)
