@@ -24,7 +24,3 @@ def test_syscheck_delete_agent(mock_db_conn, agent):
     """
     syscheck.syscheck_delete_agent(agent, mock_db_conn)
     mock_db_conn.execute.assert_any_call(f"agent {agent} sql delete from fim_entry", delete=True)
-    mock_db_conn.execute.assert_any_call(f"agent {agent} sql update metadata set value = '000' "
-                                         "where key like 'fim_db%'", update=True)
-    mock_db_conn.execute.assert_called_with(f"agent {agent} sql update metadata set value = '000' "
-                                            "where key = 'syscheck-db-completed'", update=True)
