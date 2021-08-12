@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 *:*src/sysInfoLinux.cpp:257
 *:*src/packages/pkgWrapper.h:105
+=======
+*:*src/sysInfoLinux.cpp:296
+*:*src/packages/pkgWrapper.h:104
+*:*src/packages/packagesWindowsParserHelper.h:51
+>>>>>>> 4.2
