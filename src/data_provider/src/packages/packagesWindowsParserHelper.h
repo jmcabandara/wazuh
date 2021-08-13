@@ -30,12 +30,8 @@ namespace PackageWindowsHelper
         std::string ret;
         input = Utils::toUpperCase(input);
         std::smatch match;
-<<<<<<< HEAD
 
-        if (std::regex_search(input, match, std::regex(KB_FORMAT_REGEX_STR)))
-=======
         if (std::regex_search(input, match, rex))
->>>>>>> 4.2
         {
             // KB format is correct
             ret = match[1];
@@ -50,29 +46,14 @@ namespace PackageWindowsHelper
         {
             std::set<std::string> hotfixes;
             Utils::Registry root{key, subKey, KEY_WOW64_64KEY | KEY_ENUMERATE_SUB_KEYS | KEY_READ};
-<<<<<<< HEAD
-            const auto packages{root.enumerate()};
-
-            for (const auto& package : packages)
-=======
             const auto callback
->>>>>>> 4.2
             {
-                [&key, &subKey, &hotfixes](const std::string& package)
+                [&key, &subKey, &hotfixes](const std::string & package)
                 {
-<<<<<<< HEAD
-                    std::string value;
-                    Utils::Registry packageReg{key, subKey + "\\" + package, KEY_WOW64_64KEY | KEY_READ};
-
-                    if (packageReg.string("InstallLocation", value))
-                    {
-                        const auto hfValue { extractHFValue(value) };
-
-=======
                     if (Utils::startsWith(package, "Package_"))
                     {
                         auto hfValue { extractHFValue(package) };
->>>>>>> 4.2
+
                         if (!hfValue.empty())
                         {
                             hotfixes.insert(std::move(hfValue));
@@ -81,9 +62,11 @@ namespace PackageWindowsHelper
                         {
                             std::string value;
                             Utils::Registry packageReg{key, subKey + "\\" + package, KEY_WOW64_64KEY | KEY_READ};
+
                             if (packageReg.string("InstallLocation", value))
                             {
                                 auto rollUpValue { extractHFValue(value) };
+
                                 if (!rollUpValue.empty())
                                 {
                                     hotfixes.insert(std::move(rollUpValue));
@@ -92,15 +75,10 @@ namespace PackageWindowsHelper
                         }
                     }
                 }
-<<<<<<< HEAD
-            }
-
-            for (const auto& hotfix : hotfixes)
-=======
             };
             root.enumerate(callback);
+
             for (auto& hotfix : hotfixes)
->>>>>>> 4.2
             {
                 nlohmann::json hotfixValue;
                 hotfixValue["hotfix"] = std::move(hotfix);
@@ -117,37 +95,22 @@ namespace PackageWindowsHelper
         try
         {
             std::set<std::string> hotfixes;
-<<<<<<< HEAD
-            Utils::Registry root{key, subKey, KEY_WOW64_64KEY | KEY_ENUMERATE_SUB_KEYS | KEY_READ};
-            const auto packages{root.enumerate()};
-
-            for (const auto& package : packages)
-            {
-                const auto hfValue { extractHFValue(package) };
-
-                if (!hfValue.empty())
-=======
             const auto callback
             {
-                [&key, &subKey, &hotfixes](const std::string& package)
->>>>>>> 4.2
+                [&key, &subKey, &hotfixes](const std::string & package)
                 {
                     auto hfValue { extractHFValue(package) };
+
                     if (!hfValue.empty())
                     {
                         hotfixes.insert(std::move(hfValue));
                     }
                 }
-<<<<<<< HEAD
-            }
-
-            for (const auto& hotfix : hotfixes)
-=======
             };
             Utils::Registry root{key, subKey, KEY_WOW64_64KEY | KEY_ENUMERATE_SUB_KEYS | KEY_READ};
             root.enumerate(callback);
+
             for (auto& hotfix : hotfixes)
->>>>>>> 4.2
             {
                 nlohmann::json hotfixValue;
                 hotfixValue["hotfix"] = std::move(hotfix);
